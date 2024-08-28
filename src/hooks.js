@@ -8,15 +8,16 @@ const useFlip = () => {
     return [flipped, flip];
 }
 
-const useAxios = (url) => {
+const useAxios = (baseUrl) => {
     const [data, setData] = useState([]);
-    const addCard = async () => {
+    const addData = async (path = '') => {
+        const url = path !== '' ? `${baseUrl}/${path}` : baseUrl;
         const response = await axios.get(`${url}`);
         setData(data => [
             ...data, { ...response.data, id: uuid() }
         ]);
   };
-  return [data, addCard];
+  return [data, addData];
 }
 
 export { useFlip, useAxios };
